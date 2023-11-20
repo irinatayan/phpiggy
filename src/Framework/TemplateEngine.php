@@ -13,9 +13,16 @@ class TemplateEngine
         $this->basePath = $basePath;
     }
 
-    public function render(string $template, array $data = []): void
+    public function render(string $template, array $data = []): false | string
     {
         extract($data, EXTR_SKIP);
+        ob_start();
         include "$this->basePath/$template";
+
+        $output = ob_get_contents();
+
+        ob_get_clean();
+
+        return $output;
     }
 }
