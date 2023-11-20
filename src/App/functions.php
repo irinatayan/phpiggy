@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use JetBrains\PhpStorm\NoReturn;
-
 function dd(mixed $value): void
 {
     echo "<pre>";

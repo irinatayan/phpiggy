@@ -22,10 +22,8 @@ class Router
     private function normalizePath(string $path): string
     {
         $path = trim($path, '/');
-        $path = "/{$path}/";
-        $path = preg_replace("#[/]{2,}#", '/', $path);
-
-        return $path;
+        $path = "/$path/";
+        return preg_replace("#/{2,}#", '/', $path);
     }
 
     public function dispatch(string $path, string $method): void
@@ -38,7 +36,7 @@ class Router
                 continue;
             }
             [$class, $function] = $route['controller'];
-            $controllerInstance = new $class;
+            $controllerInstance = new $class();
             $controllerInstance->{$function}();
         }
     }
