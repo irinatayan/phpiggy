@@ -9,7 +9,7 @@ use App\Services\ValidatorService;
 class AuthController
 {
 
-    public function __construct(private readonly TemplateEngine $view, private ValidatorService $ValidatorService)
+    public function __construct(private readonly TemplateEngine $view, private readonly ValidatorService $ValidatorService)
     {
     }
 
@@ -20,6 +20,6 @@ class AuthController
 
     public function register(): void
     {
-       dd($_POST);
+       $this->ValidatorService->validateRegister($_POST);
     }
 }
