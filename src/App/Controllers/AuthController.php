@@ -14,8 +14,14 @@ class AuthController
 
     }
 
-    public function register(): void
+    public function registerView(): void
     {
         echo $this->view->render("/register.php", ['title' => 'Register']);
+    }
+
+    public function register(): void
+    {
+       dd($_POST);
+
     }
 }
