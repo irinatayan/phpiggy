@@ -1,5 +1,7 @@
 <?php include $this->resolve("partials/_header.php"); ?>
+<?php /** @var array $errors */ ?>
 
+<?php var_dump($errors) ?>
 <section
     class="max-w-2xl mx-auto mt-12 p-4 bg-white shadow-md border border-gray-200 rounded"
 >
@@ -13,6 +15,9 @@
                 placeholder="john@example.com"
                 name="email"
             />
+            <?php if (array_key_exists('email', $errors)): ?>
+                <div class="bg-gray-100 mt-2 p-2 text-red-500"><?=e($errors['email'][0]);?></div>
+            <?php endif; ?>
         </label>
         <!-- Age -->
         <label class="block">
@@ -23,6 +28,9 @@
                 placeholder=""
                 name="age"
             />
+            <?php if (array_key_exists('age', $errors)): ?>
+                <div class="bg-gray-100 mt-2 p-2 text-red-500"><?=e($errors['age'][0]);?></div>
+            <?php endif; ?>
         </label>
         <!-- Country -->
         <label class="block">
@@ -35,6 +43,9 @@
                 <option value="Mexico">Mexico</option>
                 <option value="Invalid">Invalid Country</option>
             </select>
+            <?php if (array_key_exists('country', $errors)): ?>
+                <div class="bg-gray-100 mt-2 p-2 text-red-500"><?=e($errors['country'][0]);?></div>
+            <?php endif; ?>
         </label>
         <!-- Social Media URL -->
         <label class="block">
@@ -45,6 +56,9 @@
                 placeholder="socialMediaURL"
                 name="socialMediaURL"
             />
+            <?php if (array_key_exists('socialMediaURL', $errors)): ?>
+                <div class="bg-gray-100 mt-2 p-2 text-red-500"><?=e($errors['socialMediaURL'][0]);?></div>
+            <?php endif; ?>
         </label>
         <!-- Password -->
         <label class="block">
@@ -55,6 +69,9 @@
                 placeholder=""
                 name="password"
             />
+            <?php if (array_key_exists('password', $errors)): ?>
+                <div class="bg-gray-100 mt-2 p-2 text-red-500"><?=e($errors['password'][0]);?></div>
+            <?php endif; ?>
         </label>
         <!-- Confirm Password -->
         <label class="block">
@@ -65,6 +82,9 @@
                 placeholder=""
                 name="confirmPassword"
             />
+            <?php if (array_key_exists('passwordConfirm', $errors)): ?>
+                <div class="bg-gray-100 mt-2 p-2 text-red-500"><?=e($errors['confirmPassword'][0]);?></div>
+            <?php endif; ?>
         </label>
         <!-- Terms of Service -->
         <div class="block">
@@ -79,6 +99,9 @@
                     </label>
                 </div>
             </div>
+            <?php if (array_key_exists('tos', $errors)): ?>
+                <div class="bg-gray-100 mt-2 p-2 text-red-500"><?=e($errors['tos'][0]);?></div>
+            <?php endif; ?>
         </div>
         <button
             type="submit"
