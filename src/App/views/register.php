@@ -1,6 +1,9 @@
 <?php include $this->resolve("partials/_header.php"); ?>
 <?php /** @var array $errors */ ?>
 
+<?php
+$ss = "d";
+?>
 <section
     class="max-w-2xl mx-auto mt-12 p-4 bg-white shadow-md border border-gray-200 rounded"
 >
@@ -81,7 +84,7 @@
                 placeholder=""
                 name="confirmPassword"
             />
-            <?php if (array_key_exists('passwordConfirm', $errors)): ?>
+            <?php if (array_key_exists('confirmPassword', $errors)): ?>
                 <div class="bg-gray-100 mt-2 p-2 text-red-500"><?=e($errors['confirmPassword'][0]);?></div>
             <?php endif; ?>
         </label>
