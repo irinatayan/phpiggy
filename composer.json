@@ -18,5 +18,10 @@
             "email": "irina.tayanovskaya@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-PDO": "^8.2"
+    },
+    "scripts": {
+        "phpiggy": "php cli.php"
+    }
 }
