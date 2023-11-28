@@ -1,23 +1,17 @@
 <?php
 
 //composer run-script phpiggy
-declare(strict_types=1);
+include __DIR__ . '/src/Framework/Database.php';
 
-$driver = 'mysql';
-$config = http_build_query(data: [
-    'host' => '127.0.0.1',
-    'port' => 3307,
-    'dbname' => 'phpiggy'
-], arg_separator: ';');
+use Framework\Database;
 
-$dsn = "{$driver}:{$config}";
-$username = 'root';
-$password = 'electioneering';
-
-try {
-    $db = new PDO($dsn, $username, $password);
-} catch (PDOException $exception) {
-    die('Enable to connect to database');
-}
-
-echo "database connected";
+$db = new Database(
+    'mysql',
+    [
+        'host' => '127.0.0.1',
+        'port' => 3307,
+        'dbname' => 'phpiggy'
+    ],
+    'root',
+    'electioneering'
+);
