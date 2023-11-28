@@ -24,9 +24,15 @@ class Database
         }
     }
 
-    public function query(string $query, array $params = []):void
+    public function query(string $query, array $params = []): Database
     {
         $this->stmt = $this->connection->prepare($query);
         $this->stmt->execute($params);
+        return $this;
+    }
+
+    public function count()
+    {
+        return $this->stmt->fetchColumn();
     }
 }
