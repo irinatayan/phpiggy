@@ -1,5 +1,4 @@
 <?php
-
 //composer run-script phpiggy
 include __DIR__ . '/src/Framework/Database.php';
 
@@ -15,3 +14,9 @@ $db = new Database(
     'root',
     'electioneering'
 );
+
+
+$sqlFile = file_get_contents("./database.sql");
+
+$db->query($sqlFile);
+
