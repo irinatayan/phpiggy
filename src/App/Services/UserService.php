@@ -26,4 +26,21 @@ class UserService
             ]);
         }
     }
+
+    public function create(array $formData): void
+    {
+
+        $this->db->query(
+              "insert into users (email, password, age, country, social_media_url)
+              values (:email, :password, :age, :country, :social_media_url)",
+              [
+                  "email" => $formData['email'],
+                  "password" => $formData['password'],
+                  "age" => $formData['age'],
+                  "country" => $formData['country'],
+                  "social_media_url" => $formData['socialMediaURL'],
+              ]
+              );
+
+    }
 }
