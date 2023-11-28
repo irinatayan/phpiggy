@@ -19,7 +19,7 @@ class AuthController
 
     public function registerView(): void
     {
-        echo $this->view->render("/register.php", ['title' => 'Register']);
+        echo $this->view->render("register.php", ['title' => 'Register']);
     }
 
     public function register(): void
@@ -29,5 +29,10 @@ class AuthController
         $this->userService->create($_POST);
 
         redirectTo('/');
+    }
+
+    public function loginView(): void
+    {
+        echo $this->view->render("login.php", ['title' => 'Login']);
     }
 }
