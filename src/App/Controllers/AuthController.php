@@ -12,7 +12,7 @@ class AuthController
 
     public function __construct(
         private readonly TemplateEngine $view,
-        private readonly ValidatorService $ValidatorService,
+        private readonly ValidatorService $validatorService,
         private UserService $userService
     ) {
     }
@@ -24,7 +24,7 @@ class AuthController
 
     public function register(): void
     {
-        $this->ValidatorService->validateRegister($_POST);
+        $this->validatorService->validateRegister($_POST);
         $this->userService->isEmailTaken($_POST['email']);
         $this->userService->create($_POST);
 
@@ -38,8 +38,8 @@ class AuthController
 
     public function login(): void
     {
-        $this->ValidatorService->validateLogin($_POST);
-
+        $this->validatorService->validateLogin($_POST);
+        $this->userService->login($_POST);
         redirectTo('/');
     }
 }
