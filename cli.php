@@ -1,18 +1,25 @@
 <?php
 //composer run-script phpiggy
 include __DIR__ . '/src/Framework/Database.php';
+include __DIR__ . '/vendor/autoload.php';
+
+use App\Config\Paths;
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable(Paths::ROOT);
+$dotenv->load();
+
 
 use Framework\Database;
 
 $db = new Database(
-    'mysql',
+    $_ENV['DB_DRIVER'],
     [
-        'host' => '127.0.0.1',
-        'port' => 3307,
-        'dbname' => 'phpiggy'
+        'host' => $_ENV['DB_HOST'],
+        'port' => $_ENV['DB_PORT'],
+        'dbname' => $_ENV['DB_NAME']
     ],
-    'root',
-    'electioneering'
+    $_ENV['DB_USER'],
+    $_ENV['DB_PASS']
 );
 
 
