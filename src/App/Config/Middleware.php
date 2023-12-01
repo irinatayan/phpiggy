@@ -5,7 +5,12 @@ declare(strict_types=1);
 namespace App\Config;
 
 use Framework\App;
-use App\Middleware\{SessionMiddleware, TemplateDataMiddleware, ValidationExceptionMiddleware, FlashMiddleware};
+use App\Middleware\{AuthRequiredMiddleware,
+    GuestOnlyMiddleware,
+    SessionMiddleware,
+    TemplateDataMiddleware,
+    ValidationExceptionMiddleware,
+    FlashMiddleware};
 
 function registerMiddleware(App $app): void
 {
