@@ -42,4 +42,14 @@ class ValidatorService
             'password' => ['required'],
         ]);
     }
+
+    public function validateTransaction(array $formData): void
+    {
+        $this->validator->validate($formData, [
+            'description' => ['required'],
+            'amount' => ['required'],
+            'date' => ['required'],
+        ]);
+    }
+
 }
