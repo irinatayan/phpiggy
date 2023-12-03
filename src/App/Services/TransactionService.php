@@ -16,31 +16,48 @@ class TransactionService
     {
         $formattedDate = "{$formData['date']} 00:00:00";
 
-        $this->db->query("insert into transactions(user_id, description, amount, date) 
+        $this->db->query(
+            "insert into transactions(user_id, description, amount, date) 
                                 values (:user_id, :description, :amount, :date)",
-        [
-            'user_id' => $_SESSION['user'],
-            'description' => $formData['description'],
-            'amount' => $formData['amount'],
-            'date' => $formattedDate,
-        ]);
+            [
+                'user_id' => $_SESSION['user'],
+                'description' => $formData['description'],
+                'amount' => $formData['amount'],
+                'date' => $formattedDate,
+            ]
+        );
     }
 
     public function getUserTransactions(int $length, int $offset): array
     {
         $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
 
-        return $this->db->query(
+        $params = [
+            'user_id' => $_SESSION['user'],
+            'description' => "%{$searchTerm}%",
+        ];
+
+        $transactionCount = $this->db->query(
+            "SELECT COUNT(*)
+            FROM transactions 
+            WHERE user_id=:user_id
+            AND description LIKE :description",
+            $params
+        )->count();
+
+        $transactions = $this->db->query(
             "SELECT *, DATE_FORMAT(date, '%Y-%m-%d') as formattedDate 
             FROM transactions 
             WHERE user_id=:user_id
             AND description LIKE :description
             LIMIT {$length} OFFSET {$offset}
             ",
-            [
-                'user_id' => $_SESSION['user'],
-                'description' => "%{$searchTerm}%",
-            ]
+            $params
         )->findAll();
+
+        return [
+            $transactions,
+            $transactionCount,
+        ];
     }
 }
