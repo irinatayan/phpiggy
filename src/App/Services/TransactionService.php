@@ -93,4 +93,9 @@ class TransactionService
             ]
         );
     }
+
+    public function delete(array $params): void
+    {
+        dd($params);
+    }
 }

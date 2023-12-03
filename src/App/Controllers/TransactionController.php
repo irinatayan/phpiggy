@@ -51,4 +51,9 @@ class TransactionController
 
         redirectTo($_SERVER['HTTP_REFERER']);
     }
+
+    public function delete(array $params)
+    {
+        dd($params);
+    }
 }
