@@ -38,10 +38,10 @@ class TransactionService
         ];
 
         $transactionCount = $this->db->query(
-            "SELECT COUNT(*)
-            FROM transactions 
-            WHERE user_id=:user_id
-            AND description LIKE :description",
+            "select count(*)
+            from transactions 
+            where user_id=:user_id
+            and description like :description",
             $params
         )->count();
 
@@ -59,5 +59,18 @@ class TransactionService
             $transactions,
             $transactionCount,
         ];
+    }
+
+    public function getUserTransaction(string $id)
+    {
+        return $this->db->query(
+            "SELECT *, DATE_FORMAT(date, '%Y-%m-%d') as formattedDate
+            FROM transactions 
+            WHERE id = :id AND user_id = :user_id",
+            [
+                'id' => $id,
+                'user_id' => $_SESSION['user']
+            ]
+        )->find();
     }
 }

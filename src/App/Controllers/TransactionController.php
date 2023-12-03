@@ -16,20 +16,25 @@ class TransactionController
     ) {
     }
 
-    public function createView()
+    public function createView(): void
     {
         echo $this->view->render("transactions/create.php");
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validatorService->validateTransaction($_POST);
         $this->transactionService->create($_POST);
         redirectTo('/');
     }
 
-    public function editView(array $params)
+    public function editView(array $params): void
     {
-        dd($params);
+        $transaction = $this->transactionService->getUserTransaction($params['transaction']);
+
+        if (!$transaction) {
+            redirectTo('/');
+        }
+        echo $this->view->render("transactions/edit.php", ['transaction' => $transaction]);
     }
 }
