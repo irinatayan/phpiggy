@@ -45,11 +45,19 @@ class Router
 
         foreach ($this->routes as $route) {
             if (
-                !preg_match("#^{$route['regexPath']}$#", $path) ||
+                !preg_match("#^{$route['regexPath']}$#", $path, $paramValues) ||
                 $route['method'] !== $method
             ) {
                 continue;
             }
+
+            array_shift($paramValues);
+
+            preg_match_all('#{([^/]+)}#', $route['path'], $paramKeys);
+
+            $paramKeys = $paramKeys[1];
+
+            $params = array_combine($paramKeys, $paramValues);
 
             [$class, $function] = $route['controller'];
 
@@ -57,7 +65,7 @@ class Router
                 $container->resolve($class) :
                 new $class();
 
-            $action = fn() => $controllerInstance->{$function}();
+            $action = fn() => $controllerInstance->{$function}($params);
 
             $allMiddleware = [
                 ...$route['middlewares'],
