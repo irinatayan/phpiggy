@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Config;
 
 use Framework\App;
-use App\Middleware\{
+use App\Middleware\{AllowOriginMiddleware,
     CsrfGuardMiddleware,
     SessionMiddleware,
     TemplateDataMiddleware,
@@ -21,4 +21,5 @@ function registerMiddleware(App $app): void
     $app->addMiddleware(ValidationExceptionMiddleware::class );
     $app->addMiddleware(FlashMiddleware::class);
     $app->addMiddleware(SessionMiddleware::class );
+    $app->addMiddleware(AllowOriginMiddleware::class );
 }
