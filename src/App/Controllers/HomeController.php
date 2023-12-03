@@ -12,14 +12,12 @@ class HomeController
 
     public function __construct(private TemplateEngine $view, private TransactionService $transactionService)
     {
-
     }
 
     public function home(): void
     {
-
         $page = $_GET['p'] ?? 1;
-        $page = (int) $page;
+        $page = (int)$page;
         $length = 3;
         $offset = ($page - 1) * $length;
         $searchTerm = $_GET['s'] ?? null;
@@ -27,7 +25,18 @@ class HomeController
 
         $lastPage = ceil($count / $length);
 
-        echo $this->view->render("/index.php",
+        $pages = $lastPage ? range(1, $lastPage) : [];
+
+        $pageLinks = array_map(
+            fn($pageNum) => http_build_query([
+                'p' => $pageNum,
+                's' => $searchTerm,
+            ]),
+            $pages
+        );
+
+        echo $this->view->render(
+            "/index.php",
             [
                 'title' => 'Home page',
                 'transactions' => $transactions,
@@ -40,7 +49,10 @@ class HomeController
                 'nextPageQuery' => http_build_query([
                     'p' => $page + 1,
                     's' => $searchTerm,
-                ])
-            ]);
+                ]),
+                'pageLinks' => $pageLinks,
+                'searchTerm' => $searchTerm,
+            ]
+        );
     }
 }
